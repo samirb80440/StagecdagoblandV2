@@ -1,0 +1,20 @@
+chaque creature a des statistique qui lui sont propre . Chaque creature a donc un nombre de points de vie, de force, de vitesse et etc .
+
+les stat sont :
+l'Empathie
+la Magie 
+le Flux Obscur/tenebre
+le Physique
+le Psychique
+la Technologie
+
+chaque stat donne acces a une maitrise et une resistance exemple : physique donne acces a la maitrise physique MC et a la resistance physique RC
+les maitrise sont :
+l'Empathie MS et RS //S pour social
+la Magie MM et RM
+le Flux Obscur MT et RT //T pour tenebre
+le Physique MC et RC //C pour combat problablement 
+le Psychique MP et RP //P pour psychisme
+la Technologie MT et RT 
+
+il a aussi le niveaux d'experience , plus un joueur a de point d'experience plus il monte de niveau et plus il a de points de stat, le nombre de point d'experience necessaire pour passe au niveaux superieur est de x point d'experience par niveaux.

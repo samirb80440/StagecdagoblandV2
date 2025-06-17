@@ -1,0 +1,93 @@
+x = pas fait
+v = fait 
+
+dans la table pnj : 
+    	v terh et terv , taille du territoire
+    	v VIC voir les invisible /camourflage
+    	v am exemple amattack et amarmmag nombre d'amelioration de stats a mettre dans la table entity
+    	v si la taniere c'est une instance ou juste un point sur un map 
+    	v c'est quoi les pierres c'est le niveaux d'aggro
+    	v la diplomatie et le rank diplomatie
+    	v dissolution /savoir si le mec a le droit dissoudre 
+    	v CT /argent
+    	v corps savoir si le il y a un corps
+    	v identite
+    	x petit plus essayer de voir pour les carnivore et les herbivore
+
+dans la table magie :
+    	v ordre // pourcentage d'obtention
+    	v time // poids de l'objet en temps
+
+dans la table object :
+    	v atttypeaugment etc // a supprimer 
+    	v EZ // = effet de zone 
+    	id reservation et nom reservation // pour l'hotel des ventes
+    	v matiere // pour l'obtention du l'action recycle
+    	v placeobjet // si il est placer  
+      	etatobject // 
+    	x idpresentation // pour l'action presenter pour aider a identifier 
+				pour l'instant je pars du principe que c'est dans les event 
+    	v nbtemplate// nombre d'enchante
+    	v modele // partie du monstre de l'objet
+   	 	v magicobjet // affiliation magic
+    	v utilise // placement de l'objet si equiper
+
+monstre ; 
+    	v valide // validation pour faire spawn le monstre 
+   		v commentaire // juste commentaire de développement 
+
+lieu : 
+    	v architecture // instancetype 
+    	v upgrade batiments
+
+connait:
+    	v utilise // booleen pour savoir si ça a était utiliser dans le tour
+
+zone:
+    	v dureezone il y a des zones qui sont temporaire ? oui 
+
+quete:
+    diff1 et 2 // diff1 est egale 1 et pareil pour le 2 = 2 en gros sert a rien 
+    	v typequete // pour les quete apprentissage car elles ont limiter 
+    	v le createur est un pnj ou le joueur ? ça peut etre nullable pour dire que c'est le systeme
+    	v teamsize c'est le max de joueur ? oui 
+
+etape:
+    	v varg1 a 5 qui sont ils et comment fonctionne t'ils avec les recompense ? // du commentaire c'est juste 			pour savoir les arg comment une fonction
+    	v typeetape // c'est un entier pour savoir savoir le but de la quete
+
+recompense :
+    	v recompensetype c'est pour savoir si exemple on donne des minerais ou des equipements? // 
+    	v arg //pareil que pour les etapes 
+
+TypeCafard:
+    	v upgrade un cafard peut upgrade ? savoir si ont peut obtenir le cafard dans un levelup
+
+la table suivante c'est quoi :
+    	v zone // zone d'effect pour les potion / sort
+    	v Distinctions // c'est les haut-fait et les signe distinctive du joueurs
+    	v les tables stock // c'est cacher mais ça permet de stocker des sort 
+    	v declarationlove // c'est saint valegobling
+    	v recette // recette de cuisine et d'alchimie, j'ai mis les recette d'artisanat avec 
+    	v transaction // c'est pour de la vente d'objeten main propre 
+    	v cible // c'est pour l'aggro
+		v ordrepnj 
+    honeypot //
+    dforce //
+
+quelles est ce fameux modele qui ce situe dans 7 table exemple equipêment , composant et lieux? 
+pareil pour template c'est quoi ? ce situe dans lieux et objet.
+
+recompense comment il fonctionne ? 
+
+	v doit on renommé toute les cle etranger  ou laisser juste id afficher dans les tables? oui 
+
+les tables etat du marché doit on s'en occuper ? oui 
+
+	v comment sont transmis les ordre aux pnj ? action pnj et interaction
+
+	v un gobelin peut il avoir un niveaux different de niveaux de voir l'obscurité ? oui 
+
+	v dans un filon de fer le minerais est generer a la creation du filon ou quand le joueur le récolte ? recolte 
+
+je  me demande si il y a pas moyen de fusionner order pnj et ai a voir 

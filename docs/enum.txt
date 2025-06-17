@@ -1,0 +1,80 @@
+liste de tout les enum a remplir car il etaits en enum mais je ne sais pas quoi exectement mettre 
+
+CREATE TABLE distinctions(
+   location enum NOT NULL,
+);
+
+CREATE TABLE specie(
+   deadpower enum NOT NULL,
+   attpower enum NOT NULL,
+   hitpower enum NOT NULL,
+   fleepower enum NOT NULL,
+   specialpower enum NOT NULL,
+   secondpower enum NOT NULL,
+);
+
+CREATE TABLE cockroach(
+   status enum,
+);
+
+CREATE TABLE objecttype(
+   qualitymin enum NOT NULL,
+   deterioration enum DEFAULT "excellent", //celui-ci est pour les plantes mais je ne connais pas le nombre d'etat possible
+   qualitymax enum NOT NULL,
+);
+
+CREATE TABLE knows(
+   rank_ enum('apprentice' ,'companion' , 'master' , 'grandmaster') NOT NULL,
+);
+
+CREATE TABLE entity(
+   status enum NOT NULL, // c'est etat dans la table mais je sais pas si c'est pour savoir si il est mort donc booleen
+);
+
+CREATE TABLE quest(
+   questtype enum NOT NULL,
+);
+
+
+CREATE TABLE object(
+   quality enum NOT NULL,
+   deterioration enum NOT NULL, //pareil que pour objecttype
+);
+
+CREATE TABLE event(
+   action enum NOT NULL,
+);
+
+CREATE TABLE adherent_of(
+   rank_ enum ('apprentice' ,'companion' , 'master' , 'grandmaster') NOT NULL,
+);
+
+CREATE TABLE ai(
+   status enum NOT NULL,// probablement le meme que dans entity mais a voir 
+   statusai enum NOT NULL,
+);
+
+CREATE TABLE diplomacy(
+   visibilitylevel ENUM('public', 'private', 'secret') NOT NULL,
+   relationship_status ENUM('friendly', 'neutral', 'hostile', 'unknown') NOT NULL,
+);
+
+CREATE TABLE order_(
+   ordertype enum NOT NULL,
+);
+
+CREATE TABLE declarationlove(
+   response enum('no', 'yes', 'slap') NOT NULL,
+);
+
+CREATE TABLE area(
+   AreaEffectTypes enum NOT NULL,
+);
+
+CREATE TABLE recipeforcraft(
+   qualityminrequire enum,
+);
+
+CREATE TABLE composantenchantrequire(
+   qualityminrequire enum,
+);

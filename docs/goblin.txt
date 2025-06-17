@@ -1,0 +1,29 @@
+un goblin est un perso jouable par un joueur.
+
+un goblins doit pouvoir :
+se déplacer 
+se battre
+se soigner
+se nourrir
+mediter 
+équiper de l'equipement
+rentrer dans des grotte/donjon
+sortir des grotte/donjon
+voir son inventaire
+voir ses stat 
+
+le goblin a des stats qui sont definis et un bonus de stat qui est definis en fonction de la tribus qu'il a choisi a la creation du goblin.
+
+les tribus sont :
+
+Mentalos:
+    
+Musculeux:
+
+Nodefs:
+
+trad Scions:
+
+Vis Yonnairs:
+
+Zozo Gistes:
