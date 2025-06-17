@@ -15,38 +15,38 @@ dans la table pnj :
     x petit plus essayer de voir pour les carnovore et les herbivor
 
 dans la table magie :
-    ordre 
-    time
+    ordre rareter percentage
+    time modife poid 
 
 
 dans la table object :
-    atttypeaugment etc
-    EZ
-    id reservation et nom reservation 
-    matiere
-    placeobjet et etatobject
-    idpresentation
-    nbtemplate
-    modele
-    magicobjet
-    utilise
-
+    atttypeaugment etc 
+    EZ potion ou parchemins AOE ,-1 0 affecte tous sur la cas
+    id reservation et nom reservation vente
+    matiere recyle la matiere ou les matieres objet
+    placeobjet et etatobject ou placer le equipiment utilse objet.
+    idpresentation presente otre goblins identifaction objet enchant
+    nbtemplate nb enchant sur objet 
+    modele type de composant de categorie objet pour artisanat.
+    magicobjet liste nom des magies enchante .
+    utilise equiper quelle partie du corps ou dans sac
+    
 monstre ; 
-    valide 
-    commentaire
+    valide.systeme peut spawn 
+    commentaire. commentaire sur le monstre et ce qu'il a faire.
 
 lieu : 
-    architecture
+    architecture type souvenir .
 
 connait:
-    utilise
+    utilise 
 
 zone:
-    dureezone il y a des zones qui sont temporaire ?
+    durezone 
 
 quete:
     diff1 et 2 
-    typequete 
+    typequete  
     le createur est un pnj ou le joueur ?
     teamsize c'est le max de joueur ?
 
@@ -56,17 +56,18 @@ etape:
 
 recompense :
     recompensetype c'est pour savoir si exemple on donne des minerais ou des equipements?
-
+ nb recompense et quelle recompense
 TypeCafard:
-    upgrade un cafard peut upgrade ?
+    upgrade un cafard peut upgrade ? gagner niveau et recompense quete
 
 la table suivante c'est quoi :
-    disction
-    les tables stock  
-    declarationlove
-    recette
+    distiction exploit visible par tout monde
+    les tables stock  bank mana
+    declarationlove  
+    recette cuisine cree  et partager recette.
     transaction 
-    cible 
+    cible memorise qui attacke
+    attaquer
     honeypot
     dforce
 
@@ -83,4 +84,4 @@ comment sont transmis les ordre aux pnj ?
 
 un gobelin peut il avoir un niveaux different de niveaux de voir l'obscurité ?
 
-dans un filon de fer le minerais est generer a la creation du filon ou quand le joueur le récolte ?
+dans un filon de fer le minerais est generer a la creation du filon ou quand le joueur le récolte ? quant recolter
