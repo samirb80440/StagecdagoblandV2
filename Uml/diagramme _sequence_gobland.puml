@@ -1,29 +1,42 @@
-@startuml Utilisation
+@startuml sequence
+|= Player |
+start
+:Inscription;
+:Parcourir les techniques;
+:Faire une action;
 
-actor Player
-actor Admin
+if (Action réussie?) then (Oui)
+  :Action réussie;
+else
+  :Action échec;
+endif
+:Message action;
+stop
 
-rectangle "Système" {
-  
-  ' Cas d'utilisation Player
-  Player --> (Inscription)
-  Player --> (Parcourir les techniques)
-  Player --> (Faire une action)
-  (Faire une action) --> (Action réussie)
-  (Faire une action) --> (Action échec)
-  Player --> (Message action)
-  
-  ' Cas d'utilisation Admin
-  Admin --> (Ajouter une fonctionnalité)
-  (Ajouter une fonctionnalité) --> (Fonctionnalité marche)
-  (Ajouter une fonctionnalité) --> (Fonctionnalité ne marche pas)
-  (Fonctionnalité ne marche pas) --> (Résout problème fonctionnalité)
-  (Résout problème fonctionnalité) --> (Ajout fonctionnalité)
-  (Fonctionnalité ne marche pas) --> (Vérifie si c’est un bug)
-  (Vérifie si c’est un bug) --> (Bug trouvé)
-  (Bug trouvé) --> (Résout bug)
-  (Résout bug) --> (Test bug)
-  (Test bug) --> (Jeu fonctionnel)
-}
+|= Admin |
+start
+:Ajouter une fonctionnalité;
 
+if (Fonctionnalité marche?) then (Oui)
+  stop
+else
+  :Fonctionnalité ne marche pas;
+  :Résout problème fonctionnalité;
+  :Ajout fonctionnalité;
+
+  if (Fonctionnalité ne marche pas encore?) then (Oui)
+    :Vérifie si c’est un bug;
+
+    if (Bug trouvé?) then (Oui)
+      :Résout bug;
+      :Test bug;
+      :Jeu fonctionnel;
+    else
+      stop
+    endif
+  else
+    stop
+  endif
+endif
+end
 @enduml

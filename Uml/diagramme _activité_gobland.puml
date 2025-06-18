@@ -1,0 +1,43 @@
+@startuml sequence
+actor Player
+actor Admin
+participant "Système" as System
+
+== Parcours Player ==
+
+Player -> System: Inscription
+System --> Player: Confirmation d'inscription
+
+Player -> System: Parcourir les techniques
+System --> Player: Liste des techniques
+
+Player -> System: Faire une action
+alt Action réussie
+  System --> Player: Action réussie
+else Action échouée
+  System --> Player: Action échec
+end
+
+Player -> System: Message action
+System --> Player: Message envoyé
+
+== Parcours Admin ==
+
+Admin -> System: Ajouter une fonctionnalité
+alt Fonctionnalité marche
+  System --> Admin: Fonctionnalité marche
+else Fonctionnalité ne marche pas
+  System --> Admin: Fonctionnalité ne marche pas
+  Admin -> System: Vérifie si c’est un bug
+  alt Bug trouvé
+    System --> Admin: Bug trouvé
+    Admin -> System: Résout bug
+    System --> Admin: Bug résolu
+    Admin -> System: Test bug
+    System --> Admin: Jeu fonctionnel
+  else Pas un bug
+    Admin -> System: Résout problème fonctionnalité
+    System --> Admin: Ajout fonctionnalité
+  end
+end
+@enduml
