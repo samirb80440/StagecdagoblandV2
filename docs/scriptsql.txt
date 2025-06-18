@@ -188,6 +188,7 @@ CREATE TABLE familybuilding(
 
 CREATE TABLE cockroachtype(
    id UUID,
+   name VARCHAR(255)  NOT NULL,
    obtainlevelup BOOLEAN NOT NULL,
    bonus UUID NOT NULL,
    PRIMARY KEY(id),
@@ -297,6 +298,29 @@ CREATE TABLE talentinventory(
    PRIMARY KEY(id)
 );
 
+CREATE TABLE areatype(
+   id UUID,
+   name VARCHAR(255)  NOT NULL,
+   AreaEffectTypes enum NOT NULL,
+   xsuperiormin INT NOT NULL,
+   xsuperiormax INT NOT NULL,
+   xinferiormin INT NOT NULL,
+   xinferiormax INT NOT NULL,
+   ysuperiormin INT NOT NULL,
+   ysuperiormax INT NOT NULL,
+   yinferiormin INT NOT NULL,
+   yinferiormax INT NOT NULL,
+   nsuperiormin INT NOT NULL,
+   nsuperiormax INT NOT NULL,
+   ninferiormin INT NOT NULL,
+   ninferiormax INT NOT NULL,
+   duration DATETIME NOT NULL,
+   resistance INT NOT NULL,
+   hitpoints INT NOT NULL,
+   arm INT NOT NULL,
+   PRIMARY KEY(id)
+);
+
 CREATE TABLE talent(
    id UUID,
    name VARCHAR(50)  NOT NULL,
@@ -332,7 +356,7 @@ CREATE TABLE instance(
    name VARCHAR(255)  NOT NULL,
    xsuperior INT NOT NULL,
    xinferior INT NOT NULL,
-   ysuperiormin INT NOT NULL,
+   ysuperior INT NOT NULL,
    yinferior INT NOT NULL,
    nsuperior INT NOT NULL,
    ninferior INT NOT NULL,
@@ -463,7 +487,7 @@ CREATE TABLE cockroach(
    id UUID,
    name VARCHAR(255)  NOT NULL,
    age INT NOT NULL,
-   status enum,
+   status BOOLEAN NOT NULL DEFAULT TRUE,
    souls TEXT NOT NULL,
    bonus UUID NOT NULL,
    cockroachtype UUID NOT NULL,
@@ -478,9 +502,9 @@ CREATE TABLE objecttype(
    name VARCHAR(255)  NOT NULL,
    weightmin INT NOT NULL,
    weightmax INT NOT NULL,
-   qualitymin enum NOT NULL,
-   deterioration enum DEFAULT "excellent",
-   qualitymax enum NOT NULL,
+   qualitymin enum NOT NULL ('poor', 'common', 'uncommon', 'rare', 'epic', 'legendary') DEFAULT 'common',
+   qualitymax enum NOT NULL ('poor', 'common', 'uncommon', 'rare', 'epic', 'legendary') DEFAULT 'common',
+   deterioration enum ('excellent', 'good', 'average', 'damaged','rotten') DEFAULT "excellent",
    armphymin INT NOT NULL,
    armphymax INT NOT NULL,
    armmagmin INT NOT NULL,
@@ -537,9 +561,11 @@ CREATE TABLE objecttype(
    gender BOOLEAN NOT NULL,
    recipe UUID,
    family UUID NOT NULL,
+   areatype UUID,
    PRIMARY KEY(id),
    FOREIGN KEY(recipe) REFERENCES recipe(id),
-   FOREIGN KEY(family) REFERENCES familyobject(id)
+   FOREIGN KEY(family) REFERENCES familyobject(id),
+   FOREIGN KEY(areatype) REFERENCES areatype(id)
 );
 
 CREATE TABLE resourcenodestype(
@@ -734,7 +760,7 @@ CREATE TABLE object(
    armphy INT NOT NULL,
    perception INT NOT NULL,
    regeneration INT NOT NULL,
-   quality enum NOT NULL,
+   quality enum('poor', 'common', 'uncommon', 'rare', 'epic', 'legendary') NOT NULL,
    weighttime INT NOT NULL,
    actionpoint INT NOT NULL,
    psychicmast INT NOT NULL,
@@ -761,7 +787,7 @@ CREATE TABLE object(
    cursed BOOLEAN NOT NULL,
    turneffect INT NOT NULL,
    charge INT NOT NULL,
-   deterioration enum NOT NULL,
+   deterioration enum NOT NULL ('excellent', 'good', 'average', 'damaged','rotten') ,
    visibility BOOLEAN NOT NULL DEFAULT false,
    areaeffect INT NOT NULL,
    objecttype UUID NOT NULL,
@@ -960,17 +986,23 @@ CREATE TABLE area(
    id UUID,
    name VARCHAR(255)  NOT NULL,
    AreaEffectTypes enum NOT NULL,
+   xsuperior INT NOT NULL,
+   xinferior INT NOT NULL,
+   ysuperior INT NOT NULL,
+   yinferior INT NOT NULL,
+   nsuperior INT NOT NULL,
+   ninferior INT NOT NULL,
    duration DATETIME NOT NULL,
    resistance INT NOT NULL,
    hitpoints INT NOT NULL,
    arm INT NOT NULL,
-   gender BOOLEAN NOT NULL,
-   taxes INT NOT NULL,
    instance UUID NOT NULL,
    creator UUID NOT NULL,
+   areatype UUID NOT NULL,
    PRIMARY KEY(id),
    FOREIGN KEY(instance) REFERENCES instance(id),
-   FOREIGN KEY(creator) REFERENCES entity(id)
+   FOREIGN KEY(creator) REFERENCES entity(id),
+   FOREIGN KEY(areatype) REFERENCES areatype(id)
 );
 
 CREATE TABLE transaction(
@@ -989,11 +1021,11 @@ CREATE TABLE etatdumarche(
    id UUID,
    price DECIMAL(15,2)   NOT NULL,
    update_ DATETIME NOT NULL,
-   id_1 UUID,
-   id_2 UUID,
+   matter UUID,
+   object UUID,
    PRIMARY KEY(id),
-   FOREIGN KEY(id_1) REFERENCES matter(id),
-   FOREIGN KEY(id_2) REFERENCES object(id)
+   FOREIGN KEY(matter) REFERENCES matter(id),
+   FOREIGN KEY(object) REFERENCES object(id)
 );
 
 CREATE TABLE enchant(
@@ -1107,6 +1139,7 @@ CREATE TABLE positionobject(
    x INT NOT NULL,
    y INT NOT NULL,
    n INT NOT NULL,
+   quantity INT NOT NULL,
    PRIMARY KEY(instance, object),
    FOREIGN KEY(instance) REFERENCES instance(id),
    FOREIGN KEY(object) REFERENCES object(id)
@@ -1149,14 +1182,14 @@ CREATE TABLE entityfeat(
 );
 
 CREATE TABLE recipeforcraft(
-   necessaryforcraft UUID,
-   id UUID,
+   objecttype UUID,
+   recipe UUID,
    quantity INT NOT NULL,
-   qualityminrequire enum,
+   qualityminrequire enum ('poor', 'common', 'uncommon', 'rare', 'epic', 'legendary') DEFAULT 'common',
    levelmin INT,
-   PRIMARY KEY(necessaryforcraft, id),
-   FOREIGN KEY(necessaryforcraft) REFERENCES objecttype(id),
-   FOREIGN KEY(id) REFERENCES recipe(id)
+   PRIMARY KEY(objecttype, recipe),
+   FOREIGN KEY(objecttype) REFERENCES objecttype(id),
+   FOREIGN KEY(recipe) REFERENCES recipe(id)
 );
 
 CREATE TABLE servicebuilding(
@@ -1208,7 +1241,7 @@ CREATE TABLE necessarytolearn(
 CREATE TABLE composantenchantrequire(
    enchant UUID,
    component UUID,
-   qualityminrequire enum,
+   qualityminrequire enum ('poor', 'common', 'uncommon', 'rare', 'epic', 'legendary') DEFAULT 'common',
    PRIMARY KEY(enchant, component),
    FOREIGN KEY(enchant) REFERENCES enchantrequire(id),
    FOREIGN KEY(component) REFERENCES component(id)
@@ -1235,11 +1268,11 @@ CREATE TABLE maketask(
 
 CREATE TABLE itemreward(
    object UUID,
-   id UUID,
+   reward UUID,
    quantity INT NOT NULL,
-   PRIMARY KEY(object, id),
+   PRIMARY KEY(object, reward),
    FOREIGN KEY(object) REFERENCES object(id),
-   FOREIGN KEY(id) REFERENCES reward(id)
+   FOREIGN KEY(reward) REFERENCES reward(id)
 );
 
 CREATE TABLE receivenews(
@@ -1269,20 +1302,20 @@ CREATE TABLE objecttypematter(
 );
 
 CREATE TABLE isenchanted(
-   id UUID,
-   id_1 UUID,
-   PRIMARY KEY(id, id_1),
-   FOREIGN KEY(id) REFERENCES object(id),
-   FOREIGN KEY(id_1) REFERENCES enchant(id)
+   object UUID,
+   enchant UUID,
+   PRIMARY KEY(object, enchant),
+   FOREIGN KEY(object) REFERENCES object(id),
+   FOREIGN KEY(enchant) REFERENCES enchant(id)
 );
 
 CREATE TABLE entitydistinctions(
-   id UUID,
-   id_1 UUID,
+   entity UUID,
+   distinctions UUID,
    dateobtain DATETIME NOT NULL,
-   PRIMARY KEY(id, id_1),
-   FOREIGN KEY(id) REFERENCES entity(id),
-   FOREIGN KEY(id_1) REFERENCES distinctions(id)
+   PRIMARY KEY(entity, distinctions),
+   FOREIGN KEY(entity) REFERENCES entity(id),
+   FOREIGN KEY(distinctions) REFERENCES distinctions(id)
 );
 
 CREATE TABLE talentininventory(

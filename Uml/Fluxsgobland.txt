@@ -1,0 +1,57 @@
+ Flux nominal (Happy Day Scenario)
+    Joueur (Player)
+
+Le flux suivant représente le scénario où tout se déroule sans erreur :
+
+    Inscription : le joueur crée un compte sur la plateforme.
+
+    Parcours des techniques : il consulte les différentes techniques disponibles.
+
+    Exécution d'une action : il effectue une action sur la plateforme.
+
+    Résultat positif : l’action est réussie.
+
+    Message de confirmation : un retour visuel ou textuel est affiché à l'utilisateur.
+
+  Administrateur (Admin)
+
+Le scénario nominal pour l’admin est :
+
+    Ajout de fonctionnalité : l’admin implémente une nouvelle fonctionnalité dans le système.
+
+    Succès immédiat : la fonctionnalité fonctionne comme prévu après ajout.
+
+    Fin du processus : aucune correction n'est nécessaire.
+
+ Flux alternatifs
+Joueur (Player)
+     Échec d’action
+
+    Le joueur effectue une action.
+
+    L’action échoue (par exemple : mauvaise configuration, échec logique, etc.).
+
+    Un message d’échec est affiché pour informer le joueur de l’erreur.
+
+Administrateur (Admin)
+ La fonctionnalité ne fonctionne pas
+
+    L’admin ajoute une fonctionnalité.
+
+    Celle-ci ne fonctionne pas comme prévu.
+
+    Il tente de résoudre le problème de façon corrective.
+
+    La fonctionnalité est à nouveau ajoutée.
+
+  Détection d’un bug
+
+    Si la fonctionnalité échoue toujours, l’admin soupçonne un bug logiciel.
+
+    Il effectue une vérification.
+
+    Un bug est détecté.
+
+    Il est corrigé, puis testé.
+
+    Si le test est concluant, le jeu devient fonctionnel à nouveau.

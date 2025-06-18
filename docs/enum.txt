@@ -1,7 +1,7 @@
 liste de tout les enum a remplir car il etaits en enum mais je ne sais pas quoi exectement mettre 
 
 CREATE TABLE distinctions(
-   location enum NOT NULL,
+   location enum NOT NULL,//emplacement dans la table du meme nom
 );
 
 CREATE TABLE specie(
@@ -13,14 +13,10 @@ CREATE TABLE specie(
    secondpower enum NOT NULL,
 );
 
-CREATE TABLE cockroach(
-   status enum,
-);
-
 CREATE TABLE objecttype(
-   qualitymin enum NOT NULL,
-   deterioration enum DEFAULT "excellent", //celui-ci est pour les plantes mais je ne connais pas le nombre d'etat possible
-   qualitymax enum NOT NULL,
+   qualitymin enum('poor', 'common', 'uncommon', 'rare', 'epic', 'legendary') DEFAULT 'common' NOT NULL,
+   deterioration enum('excellent', 'good', 'average', 'damaged','rotten') DEFAULT "excellent", //celui-ci est pour les plantes mais je ne connais pas le nombre d'etat possible
+   qualitymax enum('poor', 'common', 'uncommon', 'rare', 'epic', 'legendary') DEFAULT 'common' NOT NULL,
 );
 
 CREATE TABLE knows(
@@ -28,7 +24,7 @@ CREATE TABLE knows(
 );
 
 CREATE TABLE entity(
-   status enum NOT NULL, // c'est etat dans la table mais je sais pas si c'est pour savoir si il est mort donc booleen
+   status enum NOT NULL, // c'est 'etat' dans la table mais je sais pas si c'est pour savoir si il est mort donc en booleen
 );
 
 CREATE TABLE quest(
@@ -37,12 +33,12 @@ CREATE TABLE quest(
 
 
 CREATE TABLE object(
-   quality enum NOT NULL,
-   deterioration enum NOT NULL, //pareil que pour objecttype
+   quality enum ENUM('poor', 'common', 'uncommon', 'rare', 'epic', 'legendary') NOT NULL,
+   deterioration enum('excellent', 'good', 'average', 'damaged','rotten') NOT NULL, //pareil que pour objecttype
 );
 
 CREATE TABLE event(
-   action enum NOT NULL,
+   action enum NOT NULL,//liste de tout les action possible dans les anciennes table event et eventobject
 );
 
 CREATE TABLE adherent_of(
@@ -50,8 +46,8 @@ CREATE TABLE adherent_of(
 );
 
 CREATE TABLE ai(
-   status enum NOT NULL,// probablement le meme que dans entity mais a voir 
-   statusai enum NOT NULL,
+   status enum NOT NULL,// probablement le meme que dans entity mais a voir si c'est le cas a suppr
+   statusai enum NOT NULL,//je me demande si c'est pas la meme que juste au dessus le probleme c'est que je les recuperais de la table pnj
 );
 
 CREATE TABLE diplomacy(
@@ -68,13 +64,13 @@ CREATE TABLE declarationlove(
 );
 
 CREATE TABLE area(
-   AreaEffectTypes enum NOT NULL,
+   AreaEffectTypes enum NOT NULL,//anciennement zonetype dans la table zone
 );
 
 CREATE TABLE recipeforcraft(
-   qualityminrequire enum,
+   qualityminrequire enum('poor', 'common', 'uncommon', 'rare', 'epic', 'legendary') DEFAULT 'common',
 );
 
 CREATE TABLE composantenchantrequire(
-   qualityminrequire enum,
+   qualityminrequire enum('poor', 'common', 'uncommon', 'rare', 'epic', 'legendary') DEFAULT 'common',
 );
