@@ -27,13 +27,25 @@ CREATE TABLE entity(
    status enum NOT NULL, // c'est 'etat' dans la table mais je sais pas si c'est pour savoir si il est mort donc en booleen
 );
 
+CREATE TABLE professions(
+   rank_ enum NOT NULL ('apprentice' ,'companion' , 'master' , 'grandmaster'),
+);
+
+CREATE TABLE feat(
+   rankmax enum NOT NULL ('apprentice' ,'companion' , 'master' , 'grandmaster'),
+);
+
+CREATE TABLE entityfeat(
+   rank_ enum NOT NULL, ('apprentice' ,'companion' , 'master' , 'grandmaster')
+);
+
 CREATE TABLE quest(
    questtype enum NOT NULL,
 );
 
 
 CREATE TABLE object(
-   quality enum ENUM('poor', 'common', 'uncommon', 'rare', 'epic', 'legendary') NOT NULL,
+   quality enum ('poor', 'common', 'uncommon', 'rare', 'epic', 'legendary') NOT NULL,
    deterioration enum('excellent', 'good', 'average', 'damaged','rotten') NOT NULL, //pareil que pour objecttype
 );
 

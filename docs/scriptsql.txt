@@ -17,7 +17,7 @@ CREATE TABLE professions(
    id UUID,
    code VARCHAR(255)  NOT NULL,
    name VARCHAR(255)  NOT NULL,
-   rank_ VARCHAR(100)  NOT NULL,
+   rank_ enum NOT NULL ('apprentice' ,'companion' , 'master' , 'grandmaster'),
    PRIMARY KEY(id)
 );
 
@@ -321,6 +321,19 @@ CREATE TABLE areatype(
    PRIMARY KEY(id)
 );
 
+CREATE TABLE diets(
+   id UUID,
+   name VARCHAR(255)  NOT NULL,
+   PRIMARY KEY(id)
+);
+
+CREATE TABLE etatdumarchepast(
+   id UUID,
+   price DECIMAL(15,2)   NOT NULL,
+   update_ DATETIME NOT NULL,
+   PRIMARY KEY(id)
+);
+
 CREATE TABLE talent(
    id UUID,
    name VARCHAR(50)  NOT NULL,
@@ -343,7 +356,7 @@ CREATE TABLE feat(
    name VARCHAR(255)  NOT NULL,
    level INT NOT NULL,
    ip INT NOT NULL,
-   maxrank INT NOT NULL,
+   rankmax enum NOT NULL ('apprentice' ,'companion' , 'master' , 'grandmaster'),
    description VARCHAR(255)  NOT NULL,
    script VARCHAR(255)  NOT NULL,
    family UUID NOT NULL,
@@ -559,6 +572,7 @@ CREATE TABLE objecttype(
    chargemin INT NOT NULL,
    chargemax INT NOT NULL,
    gender BOOLEAN NOT NULL,
+   satiety INT NOT NULL,
    recipe UUID,
    family UUID NOT NULL,
    areatype UUID,
@@ -610,7 +624,7 @@ CREATE TABLE knows(
    soul TEXT,
    talent UUID,
    percent INT NOT NULL,
-   rank_ enum('apprentice' ,'companion' , 'master' , 'grandmaster') NOT NULL,
+   rank_ enum NOT NULL ('apprentice' ,'companion' , 'master' , 'grandmaster'),
    useinturn BOOLEAN NOT NULL,
    PRIMARY KEY(soul, talent),
    FOREIGN KEY(soul) REFERENCES souls(id),
@@ -714,6 +728,7 @@ CREATE TABLE entity(
    popularity INT,
    fame INT,
    reputation INT,
+   diets UUID NOT NULL,
    talentinventory UUID,
    birthday UUID NOT NULL,
    locationinstance UUID NOT NULL,
@@ -724,6 +739,7 @@ CREATE TABLE entity(
    specie UUID NOT NULL,
    pack UUID,
    PRIMARY KEY(id),
+   FOREIGN KEY(diets) REFERENCES diets(id),
    FOREIGN KEY(talentinventory) REFERENCES talentinventory(id),
    FOREIGN KEY(birthday) REFERENCES day_(id),
    FOREIGN KEY(locationinstance) REFERENCES instance(id),
@@ -790,6 +806,7 @@ CREATE TABLE object(
    deterioration enum NOT NULL ('excellent', 'good', 'average', 'damaged','rotten') ,
    visibility BOOLEAN NOT NULL DEFAULT false,
    areaeffect INT NOT NULL,
+   satiety INT NOT NULL,
    objecttype UUID NOT NULL,
    PRIMARY KEY(id),
    FOREIGN KEY(objecttype) REFERENCES objecttype(id)
@@ -1017,15 +1034,18 @@ CREATE TABLE transaction(
    FOREIGN KEY(vendor) REFERENCES entity(id)
 );
 
-CREATE TABLE etatdumarche(
+CREATE TABLE etatdumarchepresent(
    id UUID,
    price DECIMAL(15,2)   NOT NULL,
    update_ DATETIME NOT NULL,
    matter UUID,
    object UUID,
+   id_1 UUID NOT NULL,
    PRIMARY KEY(id),
+   UNIQUE(id_1),
    FOREIGN KEY(matter) REFERENCES matter(id),
-   FOREIGN KEY(object) REFERENCES object(id)
+   FOREIGN KEY(object) REFERENCES object(id),
+   FOREIGN KEY(id_1) REFERENCES etatdumarchepast(id)
 );
 
 CREATE TABLE enchant(
@@ -1173,7 +1193,7 @@ CREATE TABLE prerequisitedprofession(
 CREATE TABLE entityfeat(
    feat UUID,
    soul TEXT,
-   rank_ INT NOT NULL,
+   rank_ enum NOT NULL ('apprentice' ,'companion' , 'master' , 'grandmaster'),
    uses INT NOT NULL,
    specialization VARCHAR(255)  NOT NULL,
    PRIMARY KEY(feat, soul),
@@ -1324,4 +1344,12 @@ CREATE TABLE talentininventory(
    PRIMARY KEY(talent, talentinventory),
    FOREIGN KEY(talent) REFERENCES talent(id),
    FOREIGN KEY(talentinventory) REFERENCES talentinventory(id)
+);
+
+CREATE TABLE dietsobjecttype(
+   objecttype UUID,
+   diets UUID,
+   PRIMARY KEY(objecttype, diets),
+   FOREIGN KEY(objecttype) REFERENCES objecttype(id),
+   FOREIGN KEY(diets) REFERENCES diets(id)
 );

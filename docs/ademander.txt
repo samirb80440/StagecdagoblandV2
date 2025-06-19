@@ -12,7 +12,7 @@ dans la table pnj :
     	v CT /argent
     	v corps savoir si le il y a un corps
     	v identite
-    	x petit plus essayer de voir pour les carnivore et les herbivore
+    	v petit plus essayer de voir pour les carnivore et les herbivore
 
 dans la table magie :
     	v ordre // pourcentage d'obtention
@@ -82,7 +82,7 @@ recompense comment il fonctionne ?
 
 	v doit on renommé toute les cle etranger  ou laisser juste id afficher dans les tables? oui 
 
-les tables etat du marché doit on s'en occuper ? oui 
+	v les tables etat du marché doit on s'en occuper ? oui 
 
 	v comment sont transmis les ordre aux pnj ? action pnj et interaction
 
