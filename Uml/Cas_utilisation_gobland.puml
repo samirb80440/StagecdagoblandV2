@@ -4,16 +4,44 @@ actor Player
 actor Admin
 
 rectangle "Système" {
-  
-  ' Cas d'utilisation Player
+
+  ' --- Cas d'utilisation Player ---
   Player --> (Inscription)
   Player --> (Parcourir les rubriques)
   Player --> (Faire une action)
   (Faire une action) --> (Action réussie)
   (Faire une action) --> (Action échec)
   Player --> (Message action)
-  
-  ' Cas d'utilisation Admin
+
+  ' --- Cas d'utilisation Admin ---
+  Admin --> (Consulter rubrique)
+  (Consulter rubrique) --> (Erreur chargement rubrique)
+
+  Admin --> (Consulter les quêtes)
+  (Consulter les quêtes) --> (Erreur chargement quêtes)
+
+  Admin --> (Créer une quête)
+  (Créer une quête) --> (Erreur validation quête)
+
+  Admin --> (Ajouter une quête)
+  (Ajouter une quête) --> (Erreur ajout quête)
+
+  Admin --> (Ajouter un monstre)
+  (Ajouter un monstre) --> (Erreur ajout monstre)
+
+  Admin --> (Consulter joueur)
+  (Consulter joueur) --> (Erreur consultation joueur)
+
+  Admin --> (Consulter monstre)
+  (Consulter monstre) --> (Erreur consultation monstre)
+
+  Admin --> (Tester une fonctionnalité)
+  (Tester une fonctionnalité) --> (Fonctionnalité fonctionne)
+  (Tester une fonctionnalité) --> (Échec fonctionnalité)
+  (Échec fonctionnalité) --> (Patcher et régler bug)
+  (Patcher et régler bug) --> (Bug corrigé)
+  (Patcher et régler bug) --> (Échec correction bug)
+
   Admin --> (Ajouter une fonctionnalité)
   (Ajouter une fonctionnalité) --> (Fonctionnalité marche)
   (Ajouter une fonctionnalité) --> (Fonctionnalité ne marche pas)
