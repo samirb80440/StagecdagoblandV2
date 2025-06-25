@@ -2,41 +2,43 @@
 |= Player |
 start
 :Inscription;
-:Parcourir les techniques;
+:Parcourir les rubriques;
 :Faire une action;
 
-if (Action réussie?) then (Oui)
+if (Action réussie ?) then (Oui)
   :Action réussie;
 else
   :Action échec;
 endif
+
 :Message action;
 stop
 
 |= Admin |
 start
+:Consulter rubriques;
+:Consulter les quêtes;
+:Créer une quête;
+:Ajouter une quête;
+:Ajouter un monstre;
 :Ajouter une fonctionnalité;
+:Consulter joueurs;
+:Consulter monstres;
 
-if (Fonctionnalité marche?) then (Oui)
-  stop
+:Tester une fonctionnalité;
+
+if (Fonctionnalité marche ?) then (Oui)
+  :Jeu fonctionnel;
 else
   :Fonctionnalité ne marche pas;
-  :Résout problème fonctionnalité;
-  :Ajout fonctionnalité;
+  :Patcher et régler bug;
 
-  if (Fonctionnalité ne marche pas encore?) then (Oui)
-    :Vérifie si c’est un bug;
-
-    if (Bug trouvé?) then (Oui)
-      :Résout bug;
-      :Test bug;
-      :Jeu fonctionnel;
-    else
-      stop
-    endif
+  if (Bug corrigé ?) then (Oui)
+    :Retester la fonctionnalité;
+    :Fonctionnalité OK;
   else
-    stop
+    :Escalade ou log erreur;
   endif
 endif
-end
+stop
 @enduml

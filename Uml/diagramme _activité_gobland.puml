@@ -1,43 +1,58 @@
-@startuml sequence
+@startuml activité
 actor Player
 actor Admin
 participant "Système" as System
 
-== Parcours Player ==
+== Parcours Joueur ==
 
-Player -> System: Inscription
+Player -> System: S'inscrire
 System --> Player: Confirmation d'inscription
 
-Player -> System: Parcourir les techniques
-System --> Player: Liste des techniques
+Player -> System: Parcourir les rubriques
+System --> Player: Affichage des rubriques
 
-Player -> System: Faire une action
-alt Action réussie
+Player -> System: Effectuer une action
+alt Succès
   System --> Player: Action réussie
-else Action échouée
-  System --> Player: Action échec
+else Échec
+  System --> Player: Action échouée
 end
 
-Player -> System: Message action
-System --> Player: Message envoyé
+Player -> System: Envoyer un message
+System --> Player: Message transmis
 
-== Parcours Admin ==
+== Parcours Administrateur ==
+
+Admin -> System: Consulter rubrique
+System --> Admin: Rubriques affichées
+
+Admin -> System: Consulter les quêtes
+System --> Admin: Liste des quêtes
+
+Admin -> System: Créer une quête
+System --> Admin: Quête créée
+
+Admin -> System: Ajouter une quête
+System --> Admin: Quête ajoutée
+
+Admin -> System: Ajouter un monstre
+System --> Admin: Monstre ajouté
+
+Admin -> System: Consulter joueur
+System --> Admin: Liste des joueurs
+
+Admin -> System: Consulter monstre
+System --> Admin: Liste des monstres
+
+Admin -> System: Tester une fonctionnalité
+alt Fonctionnalité fonctionne
+  System --> Admin: Fonctionnalité opérationnelle
+else Échec
+  System --> Admin: Échec de la fonctionnalité
+  Admin -> System: Patcher et régler le bug
+  System --> Admin: Bug corrigé
+end
 
 Admin -> System: Ajouter une fonctionnalité
-alt Fonctionnalité marche
-  System --> Admin: Fonctionnalité marche
-else Fonctionnalité ne marche pas
-  System --> Admin: Fonctionnalité ne marche pas
-  Admin -> System: Vérifie si c’est un bug
-  alt Bug trouvé
-    System --> Admin: Bug trouvé
-    Admin -> System: Résout bug
-    System --> Admin: Bug résolu
-    Admin -> System: Test bug
-    System --> Admin: Jeu fonctionnel
-  else Pas un bug
-    Admin -> System: Résout problème fonctionnalité
-    System --> Admin: Ajout fonctionnalité
-  end
-end
+System --> Admin: Fonctionnalité ajoutée
 @enduml

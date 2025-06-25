@@ -7,7 +7,7 @@ rectangle "Système" {
   
   ' Cas d'utilisation Player
   Player --> (Inscription)
-  Player --> (Parcourir les techniques)
+  Player --> (Parcourir les rubriques)
   Player --> (Faire une action)
   (Faire une action) --> (Action réussie)
   (Faire une action) --> (Action échec)

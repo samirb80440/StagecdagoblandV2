@@ -1,0 +1,13 @@
+adminstrateur :
+.consulter rubrique 
+.consulter les quetes
+.crée quetes
+.tester fonction
+.consulter joueur
+.consulter monstre
+.patcher et régler bug
+.ajouter fonctionnalité
+.ajouter monstre
+.ajouter quete
+
+
