@@ -1,5 +1,6 @@
 @startuml activité
 actor Player
+actor Player
 actor Admin
 participant "Système" as System
 
@@ -24,35 +25,71 @@ System --> Player: Message transmis
 == Parcours Administrateur ==
 
 Admin -> System: Consulter rubrique
-System --> Admin: Rubriques affichées
+alt Rubriques disponibles
+  System --> Admin: Rubriques affichées
+else Erreur d'accès
+  System --> Admin: Erreur - Rubriques non disponibles
+end
 
 Admin -> System: Consulter les quêtes
-System --> Admin: Liste des quêtes
+alt Succès
+  System --> Admin: Liste des quêtes
+else Erreur de chargement
+  System --> Admin: Erreur - Impossible d'afficher les quêtes
+end
 
 Admin -> System: Créer une quête
-System --> Admin: Quête créée
+alt Données valides
+  System --> Admin: Quête créée
+else Erreur de validation
+  System --> Admin: Données invalides
+end
 
 Admin -> System: Ajouter une quête
-System --> Admin: Quête ajoutée
+alt Ajout réussi
+  System --> Admin: Quête ajoutée
+else Erreur technique
+  System --> Admin: Erreur - Échec de l'ajout
+end
 
 Admin -> System: Ajouter un monstre
-System --> Admin: Monstre ajouté
+alt Succès
+  System --> Admin: Monstre ajouté
+else Données invalides
+  System --> Admin: Erreur - Monstre non ajouté
+end
 
 Admin -> System: Consulter joueur
-System --> Admin: Liste des joueurs
+alt Succès
+  System --> Admin: Liste des joueurs
+else Erreur BDD
+  System --> Admin: Erreur - Accès aux joueurs impossible
+end
 
 Admin -> System: Consulter monstre
-System --> Admin: Liste des monstres
+alt Succès
+  System --> Admin: Liste des monstres
+else Échec
+  System --> Admin: Erreur - Liste non disponible
+end
 
 Admin -> System: Tester une fonctionnalité
-alt Fonctionnalité fonctionne
+alt Fonctionne
   System --> Admin: Fonctionnalité opérationnelle
 else Échec
-  System --> Admin: Échec de la fonctionnalité
+  System --> Admin: Erreur - Fonctionnalité non fonctionnelle
   Admin -> System: Patcher et régler le bug
-  System --> Admin: Bug corrigé
+  alt Correction réussie
+    System --> Admin: Bug corrigé
+  else Échec de correction
+    System --> Admin: Erreur persistante
+  end
 end
 
 Admin -> System: Ajouter une fonctionnalité
-System --> Admin: Fonctionnalité ajoutée
+alt Ajout réussi
+  System --> Admin: Fonctionnalité ajoutée
+else Conflit ou erreur
+  System --> Admin: Échec de l'ajout
+end
 @enduml

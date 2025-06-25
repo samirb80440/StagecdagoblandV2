@@ -16,17 +16,52 @@ stop
 
 |= Admin |
 start
+
 :Consulter rubriques;
+if (Erreur ?) then (Oui)
+  :Afficher erreur (rubrique non disponible);
+endif
+
 :Consulter les quêtes;
+if (Erreur ?) then (Oui)
+  :Afficher erreur (problème chargement quêtes);
+endif
+
 :Créer une quête;
+if (Erreur de validation ?) then (Oui)
+  :Corriger les données;
+  :Recréer la quête;
+endif
+
 :Ajouter une quête;
+if (Erreur d’ajout ?) then (Oui)
+  :Afficher erreur;
+  :Réessayer plus tard;
+endif
+
 :Ajouter un monstre;
+if (Erreur données ?) then (Oui)
+  :Corriger infos du monstre;
+  :Réessayer;
+endif
+
 :Ajouter une fonctionnalité;
+if (Erreur technique ?) then (Oui)
+  :Corriger problème;
+  :Reajouter la fonctionnalité;
+endif
+
 :Consulter joueurs;
+if (Erreur ?) then (Oui)
+  :Base de données indisponible;
+endif
+
 :Consulter monstres;
+if (Erreur ?) then (Oui)
+  :Afficher erreur;
+endif
 
 :Tester une fonctionnalité;
-
 if (Fonctionnalité marche ?) then (Oui)
   :Jeu fonctionnel;
 else
@@ -37,8 +72,9 @@ else
     :Retester la fonctionnalité;
     :Fonctionnalité OK;
   else
-    :Escalade ou log erreur;
+    :Escalader à l’équipe technique;
   endif
 endif
+
 stop
 @enduml
