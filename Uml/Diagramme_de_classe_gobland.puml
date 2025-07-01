@@ -1,0 +1,99 @@
+@startuml BaseDeDonnées
+
+class Player {
+  +id : UUID
+  +email : String
+  +maxcharacter : int
+  +name : String
+  +imageprofil : String
+}
+
+class Mail {
+  +id : UUID
+  +title : String
+  +text : Text
+  +datesend : DateTime
+  +sender : UUID
+}
+
+class Entity {
+  +id : UUID
+  +name : String
+  +gender : int
+  +description : String
+  +imageavatar : String
+  +datecreation : DateTime
+  +datelastdeath : DateTime
+  +turnduration : Time
+  +nextturn : DateTime
+  +actionpoint : int
+  +hitpoints : int
+  +hitpointsmax : int
+  +hunger : int
+  +kills : int
+  +pvpkills : int
+  +turnattckdomage : int
+  +deathcounts : int
+  +dogde : int
+  +attack : int
+  +damage : int
+  +regeneration : int
+  +perception : int
+  +active : boolean
+  +psychicresit : int
+  +psychicmast : int
+  +physicalresit : int
+  +physicalmast : int
+  +magicrest : int
+  +magicmast : int
+  +obscurerest : int
+  +obscuremast : int
+  +socialrest : int
+  +socialmast : int
+  +technologyrest : int
+  +technologymast : int
+  +x : int
+  +y : int
+  +n : int
+  +pvp : boolean
+  +nbapmove : int
+  +nbapattack : int
+  +nbattack : int
+  +update_ : DateTime
+  +saveuniquemob : boolean
+  +rangex : int
+  +rangey : int
+  +size : int
+  +armphy : int
+  +armmag : int
+  +upgradeturnduration : int
+  +upgradeattack : int
+  +upgradedodge : int
+  +upgradeperception : int
+  +upgradedamege : int
+  +upgradehitpoints : int
+  +upgraderegeneration : int
+  +upgradearmphy : int
+  +upgradearmmag : int
+  +status : enum
+  +popularity : int
+  +fame : int
+  +reputation : int
+  +levelseeinvisible : String
+  +soul : Text
+}
+
+' Relations
+Player "1" <-- "0..*" Mail : sender
+Entity --> Entity : master
+Entity --> Diet
+Entity --> TalentInventory
+Entity --> Day_
+Entity --> Instance
+Entity --> Profession
+Entity --> Souls
+Entity --> Specie
+Entity --> Pack
+Entity --> LevelSeeInvisible
+
+@enduml
