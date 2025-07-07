@@ -1,4 +1,4 @@
-@startuml Utilisation
+@startuml Utilisation_gobland
 
 actor Player
 actor Admin
@@ -26,6 +26,12 @@ rectangle "Système" {
   Admin --> (Ajouter une quête)
   (Ajouter une quête) --> (Erreur ajout quête)
 
+  Admin --> (Ajouter une étape de quête)
+  (Ajouter une étape de quête) --> (Erreur ajout étape de quête)
+
+  Admin --> (Ajouter une récompense de quête)
+  (Ajouter une récompense de quête) --> (Erreur ajout récompense)
+
   Admin --> (Ajouter un monstre)
   (Ajouter un monstre) --> (Erreur ajout monstre)
 
@@ -52,6 +58,56 @@ rectangle "Système" {
   (Bug trouvé) --> (Résout bug)
   (Résout bug) --> (Test bug)
   (Test bug) --> (Jeu fonctionnel)
+
+  ' --- Cas d'utilisation : espèces ---
+  Admin --> (Créer une espèce)
+  (Créer une espèce) --> (Erreur création espèce)
+
+  Admin --> (Tester une espèce)
+  (Tester une espèce) --> (Espèce fonctionnelle)
+  (Tester une espèce) --> (Espèce non fonctionnelle)
+  (Espèce non fonctionnelle) --> (Corriger espèce)
+  (Corriger espèce) --> (Espèce fonctionnelle)
+
+  ' --- Cas d'utilisation : objets ---
+  Admin --> (Créer un objet)
+  (Créer un objet) --> (Erreur création objet)
+
+  Admin --> (Tester un objet)
+  (Tester un objet) --> (Objet fonctionnel)
+  (Tester un objet) --> (Objet non fonctionnel)
+  (Objet non fonctionnel) --> (Corriger objet)
+  (Corriger objet) --> (Objet fonctionnel)
+
+  ' --- Cas d'utilisation : objecttype ---
+  Admin --> (Créer un objecttype)
+  (Créer un objecttype) --> (Erreur création objecttype)
+
+  Admin --> (Tester un objecttype)
+  (Tester un objecttype) --> (Objecttype fonctionnel)
+  (Tester un objecttype) --> (Objecttype non fonctionnel)
+  (Objecttype non fonctionnel) --> (Corriger objecttype)
+  (Corriger objecttype) --> (Objecttype fonctionnel)
+
+  ' --- Cas d'utilisation : gameworld ---
+  Admin --> (Créer un gameworld)
+  (Créer un gameworld) --> (Erreur création gameworld)
+
+  Admin --> (Tester un gameworld)
+  (Tester un gameworld) --> (Gameworld fonctionnel)
+  (Tester un gameworld) --> (Gameworld non fonctionnel)
+  (Gameworld non fonctionnel) --> (Corriger gameworld)
+  (Corriger gameworld) --> (Gameworld fonctionnel)
+
+  ' --- Cas d'utilisation : gameworldtype ---
+  Admin --> (Créer un gameworldtype)
+  (Créer un gameworldtype) --> (Erreur création gameworldtype)
+
+  Admin --> (Tester un gameworldtype)
+  (Tester un gameworldtype) --> (Gameworldtype fonctionnel)
+  (Tester un gameworldtype) --> (Gameworldtype non fonctionnel)
+  (Gameworldtype non fonctionnel) --> (Corriger gameworldtype)
+  (Corriger gameworldtype) --> (Gameworldtype fonctionnel)
 }
 
 @enduml

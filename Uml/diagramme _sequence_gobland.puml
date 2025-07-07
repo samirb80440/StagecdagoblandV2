@@ -1,80 +1,119 @@
-@startuml sequence
-|= Player |
-start
-:Inscription;
-:Parcourir les rubriques;
-:Faire une action;
+@startuml Sequence_gobland
+actor Player
+actor Admin
 
-if (Action réussie ?) then (Oui)
-  :Action réussie;
+participant "UI" as UI
+participant "Système" as System
+participant "Base de données" as DB
+
+== Player ==
+
+Player -> UI : S'inscrire
+UI -> System : Créer compte
+System -> DB : INSERT INTO players
+DB --> System : OK
+System --> UI : Confirmation
+
+Player -> UI : Faire une action
+UI -> System : Traiter action
+alt Action réussie
+  System -> DB : UPDATE état joueur
+  System --> UI : Message succès
+else Action échouée
+  System --> UI : Message échec
+end
+
+== Admin ==
+
+Admin -> UI : Créer une quête
+UI -> System : Valider et créer quête
+alt Erreur validation
+  System --> UI : Message erreur validation
 else
-  :Action échec;
-endif
+  System -> DB : INSERT INTO quest
+  DB --> System : OK
+  System --> UI : Quête créée
 
-:Message action;
-stop
-
-|= Admin |
-start
-
-:Consulter rubriques;
-if (Erreur ?) then (Oui)
-  :Afficher erreur (rubrique non disponible);
-endif
-
-:Consulter les quêtes;
-if (Erreur ?) then (Oui)
-  :Afficher erreur (problème chargement quêtes);
-endif
-
-:Créer une quête;
-if (Erreur de validation ?) then (Oui)
-  :Corriger les données;
-  :Recréer la quête;
-endif
-
-:Ajouter une quête;
-if (Erreur d’ajout ?) then (Oui)
-  :Afficher erreur;
-  :Réessayer plus tard;
-endif
-
-:Ajouter un monstre;
-if (Erreur données ?) then (Oui)
-  :Corriger infos du monstre;
-  :Réessayer;
-endif
-
-:Ajouter une fonctionnalité;
-if (Erreur technique ?) then (Oui)
-  :Corriger problème;
-  :Reajouter la fonctionnalité;
-endif
-
-:Consulter joueurs;
-if (Erreur ?) then (Oui)
-  :Base de données indisponible;
-endif
-
-:Consulter monstres;
-if (Erreur ?) then (Oui)
-  :Afficher erreur;
-endif
-
-:Tester une fonctionnalité;
-if (Fonctionnalité marche ?) then (Oui)
-  :Jeu fonctionnel;
-else
-  :Fonctionnalité ne marche pas;
-  :Patcher et régler bug;
-
-  if (Bug corrigé ?) then (Oui)
-    :Retester la fonctionnalité;
-    :Fonctionnalité OK;
+  Admin -> UI : Ajouter une étape
+  UI -> System : Créer queststep
+  alt Erreur ajout étape
+    System --> UI : Erreur étape
   else
-    :Escalader à l’équipe technique;
-  endif
-endif
+    System -> DB : INSERT INTO queststep
+    DB --> System : OK
+    System --> UI : Étape ajoutée
+  end
 
-stop
+  Admin -> UI : Ajouter une récompense
+  UI -> System : Créer reward
+  alt Erreur ajout récompense
+    System --> UI : Erreur reward
+  else
+    System -> DB : INSERT INTO reward
+    DB --> System : OK
+    System --> UI : Récompense ajoutée
+  end
+end
+
+Admin -> UI : Ajouter un monstre
+UI -> System : Créer entité monstre
+System -> DB : INSERT INTO entity (monstre)
+DB --> System : OK / erreur
+System --> UI : Résultat
+
+Admin -> UI : Créer une espèce
+UI -> System : Créer dans table specie
+System -> DB : INSERT INTO specie
+alt Erreur
+  System --> UI : Message erreur
+else
+  Admin -> UI : Tester espèce
+  UI -> System : Simulation
+  System --> UI : Résultat test
+end
+
+Admin -> UI : Créer un objet
+UI -> System : Créer objet
+System -> DB : INSERT INTO object
+alt Erreur
+  System --> UI : Message erreur
+else
+  Admin -> UI : Tester objet
+  UI -> System : Simulation
+  System --> UI : Résultat test
+end
+
+Admin -> UI : Créer un objecttype
+UI -> System : Créer type
+System -> DB : INSERT INTO objecttype
+alt Erreur
+  System --> UI : Message erreur
+else
+  Admin -> UI : Tester objecttype
+  UI -> System : Simulation
+  System --> UI : Résultat test
+end
+
+Admin -> UI : Créer un gameworld
+UI -> System : Créer instance
+System -> DB : INSERT INTO instance
+alt Erreur
+  System --> UI : Message erreur
+else
+  Admin -> UI : Tester gameworld
+  UI -> System : Simulation
+  System --> UI : Résultat test
+end
+
+Admin -> UI : Créer un gameworldtype
+UI -> System : Créer instancetype
+System -> DB : INSERT INTO instancetype
+alt Erreur
+  System --> UI : Message erreur
+else
+  Admin -> UI : Tester gameworldtype
+  UI -> System : Simulation
+  System --> UI : Résultat test
+end
+
 @enduml

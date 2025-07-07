@@ -1,5 +1,13 @@
-@startuml BaseDeDonnées
+@startuml BaseDeDonnéesEtUtilisation
 
+' Enum pour status Entity
+enum Status {
+  ALIVE
+  DEAD
+  SLEEPING
+}
+
+' Classes existantes
 class Player {
   +id : UUID
   +email : String
@@ -11,7 +19,7 @@ class Player {
 class Mail {
   +id : UUID
   +title : String
-  +text : Text
+  +text : String
   +datesend : DateTime
   +sender : UUID
 }
@@ -75,25 +83,105 @@ class Entity {
   +upgraderegeneration : int
   +upgradearmphy : int
   +upgradearmmag : int
-  +status : enum
+  +status : Status
   +popularity : int
   +fame : int
   +reputation : int
   +levelseeinvisible : String
-  +soul : Text
+  +soul : String
 }
 
-' Relations
+' Nouvelles classes liées au cas d'utilisation
+
+class Admin {
+  +id : UUID
+  +name : String
+  +email : String
+  +role : String
+}
+
+class Quest {
+  +id : UUID
+  +title : String
+  +description : String
+  +status : String
+}
+
+class QuestStep {
+  +id : UUID
+  +description : String
+  +order : int
+}
+
+class QuestReward {
+  +id : UUID
+  +description : String
+  +rewardType : String
+  +value : int
+}
+
+class Monster {
+  +id : UUID
+  +name : String
+  +level : int
+  +description : String
+}
+
+class Feature {
+  +id : UUID
+  +name : String
+  +description : String
+  +status : String
+}
+
+class Species {
+  +id : UUID
+  +name : String
+  +description : String
+}
+
+class GameObject {
+  +id : UUID
+  +name : String
+  +description : String
+}
+
+class ObjectType {
+  +id : UUID
+  +name : String
+  +description : String
+}
+
+class GameWorld {
+  +id : UUID
+  +name : String
+  +description : String
+}
+
+class GameWorldType {
+  +id : UUID
+  +name : String
+  +description : String
+}
+
+' Relations existantes
 Player "1" <-- "0..*" Mail : sender
-Entity --> Entity : master
-Entity --> Diet
-Entity --> TalentInventory
-Entity --> Day_
-Entity --> Instance
-Entity --> Profession
-Entity --> Souls
-Entity --> Specie
-Entity --> Pack
-Entity --> LevelSeeInvisible
+Entity "0..1" --> "0..*" Entity : master
+
+' Relations nouvelles
+
+Admin "1" <-- "0..*" Quest : creates
+Quest "1" --> "0..*" QuestStep : includes
+Quest "1" --> "0..*" QuestReward : grants
+
+Admin "1" <-- "0..*" Monster : manages
+Admin "1" <-- "0..*" Feature : tests
+Admin "1" <-- "0..*" Species : creates
+Admin "1" <-- "0..*" GameObject : creates
+Admin "1" <-- "0..*" ObjectType : creates
+Admin "1" <-- "0..*" GameWorld : creates
+Admin "1" <-- "0..*" GameWorldType : creates
+
+Player "0..*" --> "0..*" Quest : participates
 
 @enduml

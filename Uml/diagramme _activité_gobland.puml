@@ -1,95 +1,153 @@
-@startuml activité
-actor Player
-actor Player
-actor Admin
-participant "Système" as System
+@startuml Activité_gobland
 
-== Parcours Joueur ==
+start
 
-Player -> System: S'inscrire
-System --> Player: Confirmation d'inscription
+partition "Player" {
+  :Inscription;
+  :Parcourir les rubriques;
+  :Faire une action;
+  if (Action réussie ?) then (Oui)
+    :Afficher message action;
+  else
+    :Afficher message échec;
+  endif
+}
 
-Player -> System: Parcourir les rubriques
-System --> Player: Affichage des rubriques
+partition "Admin" {
 
-Player -> System: Effectuer une action
-alt Succès
-  System --> Player: Action réussie
-else Échec
-  System --> Player: Action échouée
-end
+  :Consulter rubrique;
+  if (Erreur chargement rubrique ?) then (Oui)
+    :Afficher erreur rubrique;
+  endif
 
-Player -> System: Envoyer un message
-System --> Player: Message transmis
+  :Consulter les quêtes;
+  if (Erreur chargement quêtes ?) then (Oui)
+    :Afficher erreur quêtes;
+  endif
 
-== Parcours Administrateur ==
+  :Créer une quête;
+  if (Erreur validation quête ?) then (Oui)
+    :Afficher erreur validation;
+  else
+    :Ajouter une quête;
+    if (Erreur ajout quête ?) then (Oui)
+      :Afficher erreur ajout quête;
+    else
+      :Ajouter une étape de quête;
+      if (Erreur ajout étape ?) then (Oui)
+        :Afficher erreur ajout étape;
+      endif
 
-Admin -> System: Consulter rubrique
-alt Rubriques disponibles
-  System --> Admin: Rubriques affichées
-else Erreur d'accès
-  System --> Admin: Erreur - Rubriques non disponibles
-end
+      :Ajouter une récompense de quête;
+      if (Erreur ajout récompense ?) then (Oui)
+        :Afficher erreur ajout récompense;
+      endif
+    endif
+  endif
 
-Admin -> System: Consulter les quêtes
-alt Succès
-  System --> Admin: Liste des quêtes
-else Erreur de chargement
-  System --> Admin: Erreur - Impossible d'afficher les quêtes
-end
+  :Ajouter un monstre;
+  if (Erreur ajout monstre ?) then (Oui)
+    :Afficher erreur ajout monstre;
+  endif
 
-Admin -> System: Créer une quête
-alt Données valides
-  System --> Admin: Quête créée
-else Erreur de validation
-  System --> Admin: Données invalides
-end
+  :Consulter joueur;
+  if (Erreur consultation joueur ?) then (Oui)
+    :Afficher erreur joueur;
+  endif
 
-Admin -> System: Ajouter une quête
-alt Ajout réussi
-  System --> Admin: Quête ajoutée
-else Erreur technique
-  System --> Admin: Erreur - Échec de l'ajout
-end
+  :Consulter monstre;
+  if (Erreur consultation monstre ?) then (Oui)
+    :Afficher erreur monstre;
+  endif
 
-Admin -> System: Ajouter un monstre
-alt Succès
-  System --> Admin: Monstre ajouté
-else Données invalides
-  System --> Admin: Erreur - Monstre non ajouté
-end
+  :Tester une fonctionnalité;
+  if (Fonctionnalité fonctionne ?) then (Oui)
+    :Afficher OK;
+  else
+    :Patcher et régler bug;
+    if (Bug corrigé ?) then (Oui)
+      :Afficher correctif réussi;
+    else
+      :Afficher échec correction;
+    endif
+  endif
 
-Admin -> System: Consulter joueur
-alt Succès
-  System --> Admin: Liste des joueurs
-else Erreur BDD
-  System --> Admin: Erreur - Accès aux joueurs impossible
-end
+  :Ajouter une fonctionnalité;
+  if (Fonctionnalité marche ?) then (Oui)
+    :Afficher ajout réussi;
+  else
+    :Vérifie si c’est un bug;
+    if (Bug trouvé ?) then (Oui)
+      :Résout bug;
+      :Test bug;
+      :Afficher jeu fonctionnel;
+    else
+      :Résout problème de fonctionnalité;
+      :Retenter ajout;
+    endif
+  endif
 
-Admin -> System: Consulter monstre
-alt Succès
-  System --> Admin: Liste des monstres
-else Échec
-  System --> Admin: Erreur - Liste non disponible
-end
+  :Créer une espèce;
+  if (Erreur création espèce ?) then (Oui)
+    :Afficher erreur création espèce;
+  else
+    :Tester une espèce;
+    if (Espèce fonctionnelle ?) then (Oui)
+      :Afficher succès espèce;
+    else
+      :Corriger espèce;
+    endif
+  endif
 
-Admin -> System: Tester une fonctionnalité
-alt Fonctionne
-  System --> Admin: Fonctionnalité opérationnelle
-else Échec
-  System --> Admin: Erreur - Fonctionnalité non fonctionnelle
-  Admin -> System: Patcher et régler le bug
-  alt Correction réussie
-    System --> Admin: Bug corrigé
-  else Échec de correction
-    System --> Admin: Erreur persistante
-  end
-end
+  :Créer un objet;
+  if (Erreur création objet ?) then (Oui)
+    :Afficher erreur création objet;
+  else
+    :Tester un objet;
+    if (Objet fonctionnel ?) then (Oui)
+      :Afficher succès objet;
+    else
+      :Corriger objet;
+    endif
+  endif
 
-Admin -> System: Ajouter une fonctionnalité
-alt Ajout réussi
-  System --> Admin: Fonctionnalité ajoutée
-else Conflit ou erreur
-  System --> Admin: Échec de l'ajout
-end
+  :Créer un objecttype;
+  if (Erreur création objecttype ?) then (Oui)
+    :Afficher erreur création objecttype;
+  else
+    :Tester un objecttype;
+    if (Objecttype fonctionnel ?) then (Oui)
+      :Afficher succès objecttype;
+    else
+      :Corriger objecttype;
+    endif
+  endif
+
+  :Créer un gameworld;
+  if (Erreur création gameworld ?) then (Oui)
+    :Afficher erreur création gameworld;
+  else
+    :Tester un gameworld;
+    if (Gameworld fonctionnel ?) then (Oui)
+      :Afficher succès gameworld;
+    else
+      :Corriger gameworld;
+    endif
+  endif
+
+  :Créer un gameworldtype;
+  if (Erreur création gameworldtype ?) then (Oui)
+    :Afficher erreur création gameworldtype;
+  else
+    :Tester un gameworldtype;
+    if (Gameworldtype fonctionnel ?) then (Oui)
+      :Afficher succès gameworldtype;
+    else
+      :Corriger gameworldtype;
+    endif
+  endif
+}
+
+stop
+
 @enduml
