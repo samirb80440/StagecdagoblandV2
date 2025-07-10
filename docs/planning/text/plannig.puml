@@ -1,0 +1,24 @@
+@startgantt test
+
+[Rétro-ingénierie] as [retro] requires 15 days
+[Conception de la base de données] as [conception] requires 17 days
+[réalisation du dictionnaire de la base de données] as [dictionnaire] requires 4 days
+[Conception des Diagrammes UML] as [UML] requires 8 days
+[Conception Frontend] as [FrontDesign] requires 5 days
+[Développement Backend PHP] as [BackendDev] requires 15 days
+[Développement Frontend HTML/CSS/JS] as [FrontDev] requires 10 days
+[Tests unitaires et intégration] as [Testing] requires 2 days
+[Déploiement] as [Deploy] requires 1 days
+
+
+
+[conception] starts at [retro]'s end
+[dictionnaire] starts at [conception]'s end
+[UML] starts at [conception]'s end
+[FrontDesign] starts at [UML]'s end
+[BackendDev] starts at [FrontDesign]'s end
+[FrontDev] starts at [BackendDev]'s end
+[Testing] starts at [FrontDev]'s end
+[Deploy] starts at [Testing]'s end
+
+@endgantt

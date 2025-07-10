@@ -9,5 +9,5 @@ adminstrateur :
 .ajouter fonctionnalité
 .ajouter monstre
 .ajouter quete
-
+.erreur et resoluation erreur pour chaque
 
