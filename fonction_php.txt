@@ -1,0 +1,4 @@
+fonction creation goblelin
+voir comment faire 
+fonction creation area
+fonction point action
